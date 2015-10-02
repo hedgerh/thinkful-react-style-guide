@@ -15,10 +15,10 @@ export default class TrackItem extends Component {
 
   render() {
     return (
-      <li onClick={ this.onTrackClick }>
-        <p>{ this.props.title }</p>
-        <p>{ this.props.username }</p>
-      </li>
+      <tr onClick={ this.onTrackClick }>
+        <td>{ this.props.title }</td>
+        <td>{ this.props.username }</td>
+      </tr>
     );
   }
 }

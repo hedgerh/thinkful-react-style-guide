@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Cover, PlayButton, Icons } from 'react-soundplayer/components'; 
-import { SoundPlayerContainer } from 'react-soundplayer/addons';
-
 import request from 'superagent';
+
+import { SoundPlayerContainer } from 'react-soundplayer/addons';
+import { Cover, PlayButton } from 'react-soundplayer/components'; 
 
 import TrackList from './TrackList';
 
-const { PlayIconSVG } = Icons;
 const CLIENT_ID = 'f3ef438d3cc35d9fd575578905fc5510';
 
 export default class App extends Component {
@@ -14,7 +13,7 @@ export default class App extends Component {
     super(props, context);
 
     this.state = {
-      track: {},
+      currentTrack: {},
       tracks: []
     };
 
@@ -33,26 +32,13 @@ export default class App extends Component {
   };
 
   onTrackSelect(title, username, streamUrl) {
-    this.setState({
-      track: {
-        title: title,
-        username: username,
-        stream_url: streamUrl
-      }
-    });
+
   };
 
   render() {
-    console.log(this.state.track);
     return (
       <div>
-        <SoundPlayerContainer
-          clientId={CLIENT_ID}
-          stream_url={ this.state.track.stream_url } >
-            <TrackList
-              tracks={ this.state.tracks }
-              onTrackSelect={ this.onTrackSelect } />
-        </SoundPlayerContainer>
+
       </div>
     );
   };
