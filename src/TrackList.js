@@ -10,7 +10,16 @@ export default class TrackList extends Component {
   };
 
   renderTracks() {
-
+    return this.props.tracks ? this.props.tracks.map((track, i) => {
+      return (
+        <TrackItem
+          title={track.title}
+          username={track.user.username}
+          streamUrl={ track.stream_url } 
+          onTrackSelect={ this.props.onTrackSelect }
+          key={ i } />
+      );
+    }) : null;
   };
 
   render() {
@@ -21,7 +30,7 @@ export default class TrackList extends Component {
           <td>Artist</td>
         </thead>
         <tbody>
-
+          { this.renderTracks() }
         </tbody>
       </table>
     );
