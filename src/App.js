@@ -32,13 +32,26 @@ export default class App extends Component {
   };
 
   onTrackSelect(title, username, streamUrl) {
-
+    this.setState({
+      currentTrack: {
+        title: title,
+        username: username,
+        streamUrl: streamUrl
+      }
+    });
   };
 
   render() {
     return (
       <div>
-
+        <SoundPlayerContainer
+          clientId={CLIENT_ID}
+          streamUrl={ this.state.currentTrack.streamUrl ? this.state.currentTrack.streamUrl : '' } >
+            <PlayButton />
+            <TrackList
+              tracks={ this.state.tracks }
+              onTrackSelect={ this.onTrackSelect } />
+        </SoundPlayerContainer>
       </div>
     );
   };
