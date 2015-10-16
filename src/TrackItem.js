@@ -22,3 +22,9 @@ export default class TrackItem extends Component {
     );
   }
 }
+
+TrackItem.PropTypes = {
+  title: React.PropTypes.string,
+  username: React.PropTypes.string,
+  streamUrl: React.PropTypes.string
+};

@@ -36,3 +36,8 @@ export default class TrackList extends Component {
     );
   }
 }
+
+TrackList.PropTypes = {
+  tracks: React.PropTypes.array,
+  onTrackSelect: React.PropTypes.func
+};

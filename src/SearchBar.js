@@ -11,3 +11,8 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.PropTypes = {
+  value: React.PropTypes.string,
+  onInputChange: React.PropTypes.func
+};
