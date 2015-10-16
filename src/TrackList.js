@@ -10,12 +10,12 @@ export default class TrackList extends Component {
   };
 
   renderTracks() {
-    return this.props.tracks ? this.props.tracks.map((track, i) => {
+    return (this.props.tracks && this.props.tracks.map) ? this.props.tracks.map((track, i) => {
       return (
         <TrackItem
           title={track.title}
-          username={track.user.username}
-          streamUrl={ track.stream_url } 
+          username={ track.user.username }
+          streamUrl={ track.stream_url }
           onTrackSelect={ this.props.onTrackSelect }
           key={ i } />
       );

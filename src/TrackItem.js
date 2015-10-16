@@ -7,7 +7,7 @@ export default class TrackItem extends Component {
     this.onTrackClick = this.onTrackClick.bind(this);
   };
 
-  onTrackClick() {
+  onTrackClick(event) {
     const { title, username, streamUrl } = this.props;
 
     this.props.onTrackSelect(title, username, streamUrl);
