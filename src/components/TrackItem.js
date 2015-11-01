@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class TrackItem extends Component {
   constructor(props, context) {
@@ -23,8 +23,9 @@ export default class TrackItem extends Component {
   }
 }
 
-TrackItem.PropTypes = {
-  title: React.PropTypes.string,
-  username: React.PropTypes.string,
-  streamUrl: React.PropTypes.string
-};
+TrackItem.propTypes = {
+  title: PropTypes.string,
+  username: PropTypes.string,
+  streamUrl: PropTypes.string,
+  onTrackSelect: PropTypes.func
+}

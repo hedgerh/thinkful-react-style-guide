@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import TrackItem from './TrackItem';
 
@@ -10,7 +10,7 @@ export default class TrackList extends Component {
   };
 
   renderTracks() {
-    return (this.props.tracks && this.props.tracks.map) ? this.props.tracks.map((track, i) => {
+    return (this.props.tracks) ? this.props.tracks.map((track, i) => {
       return (
         <TrackItem
           title={track.title}
@@ -37,7 +37,7 @@ export default class TrackList extends Component {
   }
 }
 
-TrackList.PropTypes = {
-  tracks: React.PropTypes.array,
-  onTrackSelect: React.PropTypes.func
-};
+TrackList.propTypes = {
+  tracks: PropTypes.array,
+  onTrackSelect: PropTypes.func
+}

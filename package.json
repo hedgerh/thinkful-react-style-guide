@@ -40,7 +40,8 @@
     "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
-    "react": "^0.13.0",
+    "react": "^0.14.1",
+    "react-dom": "^0.14.1",
     "react-soundplayer": "^0.2.1",
     "superagent": "^1.4.0"
   }

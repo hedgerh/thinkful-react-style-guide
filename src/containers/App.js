@@ -4,8 +4,8 @@ import request from 'superagent';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
 import { PlayButton } from 'react-soundplayer/components'; 
 
-import TrackList from './TrackList';
-import SearchBar from './SearchBar';
+import TrackList from '../components/TrackList';
+import SearchBar from './components/SearchBar';
 
 const CLIENT_ID = 'f3ef438d3cc35d9fd575578905fc5510';
 
@@ -52,11 +52,11 @@ export default class App extends Component {
   };
 
   filterTracks() {
-    const { inputValue } = this.state;
-
-    return (inputValue) ? this.state.tracks.filter(track => {
+    const { inputValue, tracks } = this.state;
+    
+    return (inputValue) ? tracks.filter(track => {
       return track.title.indexOf(inputValue) === 0;
-    }) : this.state.tracks;
+    }) : tracks;
   }
 
   render() {
@@ -70,7 +70,7 @@ export default class App extends Component {
         </div>
         <SoundPlayerContainer
           clientId={CLIENT_ID}
-          streamUrl={ this.state.currentTrack.streamUrl ? this.state.currentTrack.streamUrl : ' ' } >
+          streamUrl={ this.state.currentTrack.streamUrl ? this.state.currentTrack.streamUrl : '' } >
             <PlayButton />
         </SoundPlayerContainer>
         <SearchBar

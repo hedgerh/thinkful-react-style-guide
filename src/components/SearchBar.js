@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class SearchBar extends Component {
   render() {
@@ -12,7 +12,8 @@ export default class SearchBar extends Component {
   }
 }
 
-SearchBar.PropTypes = {
-  value: React.PropTypes.string,
-  onInputChange: React.PropTypes.func
-};
+SearchBar.propTypes = {
+  value:PropTypes.string,
+  onInputChange: PropTypes.func
+}
+
