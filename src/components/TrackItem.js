@@ -1,31 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-export default class TrackItem extends Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.onTrackClick = this.onTrackClick.bind(this);
-  };
-
-  onTrackClick(event) {
-    const { title, username, streamUrl } = this.props;
-
-    this.props.onTrackSelect(title, username, streamUrl);
-  };
+export default React.createClass({
+  propTypes: {
+    track: React.PropTypes.object
+  },
 
   render() {
     return (
-      <tr onClick={ this.onTrackClick }>
-        <td>{ this.props.title }</td>
-        <td>{ this.props.username }</td>
+      <tr onClick={ () => this.props.onTrackSelect(this.props.track.id) }>
+        <td>{ this.props.track.title }</td>
+        <td>{ this.props.track.user.username }</td>
       </tr>
     );
   }
-}
-
-TrackItem.propTypes = {
-  title: PropTypes.string,
-  username: PropTypes.string,
-  streamUrl: PropTypes.string,
-  onTrackSelect: PropTypes.func
-}
+});
