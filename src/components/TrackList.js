@@ -1,43 +1,30 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { PropTypes } from 'react';
 import TrackItem from './TrackItem';
 
-export default class TrackList extends Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.renderTracks = this.renderTracks.bind(this);
-  };
-
-  renderTracks() {
-    return (this.props.tracks) ? this.props.tracks.map((track, i) => {
-      return (
+const TrackList = (props) => (
+  <table>
+    <thead>
+      <tr>
+        <td>Title</td>
+        <td>Artist</td>
+      </tr>
+    </thead>
+    <tbody>
+      { props.tracks ? props.tracks.map((track, i) =>
         <TrackItem
-          title={track.title}
+          id={ track.id }
+          title={ track.title }
           username={ track.user.username }
-          streamUrl={ track.stream_url }
-          onTrackSelect={ this.props.onTrackSelect }
+          onTrackSelect={ props.onTrackSelect }
           key={ i } />
-      );
-    }) : null;
-  };
-
-  render() {
-    return (
-      <table>
-        <thead>
-          <td>Title</td>
-          <td>Artist</td>
-        </thead>
-        <tbody>
-          { this.renderTracks() }
-        </tbody>
-      </table>
-    );
-  }
-}
+        ) : null }
+    </tbody>
+  </table>
+);
 
 TrackList.propTypes = {
   tracks: PropTypes.array,
   onTrackSelect: PropTypes.func
-}
+};
+
+export default TrackList;

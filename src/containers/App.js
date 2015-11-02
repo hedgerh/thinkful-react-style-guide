@@ -4,82 +4,82 @@ import request from 'superagent';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
 import { PlayButton } from 'react-soundplayer/components'; 
 
+import TrackInfo from '../components/TrackInfo';
 import TrackList from '../components/TrackList';
-import SearchBar from './components/SearchBar';
 
 const CLIENT_ID = 'f3ef438d3cc35d9fd575578905fc5510';
 
 export default class App extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
-      currentTrack: {},
+      activeTrackId: -1,
       tracks: [],
-      inputValue: ''
+      tracksById: {}
     };
 
     this.onTrackSelect = this.onTrackSelect.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.filterTracks = this.filterTracks.bind(this);
   };
 
+  /**
+   * Fetches a random list of tracks from Soundcloud on mount.
+   */
   componentDidMount() {
     request
       .get('https://api.soundcloud.com/tracks?client_id=' + CLIENT_ID)
       .set('Content-Type', 'application/json')
+      .on('error', (err) => console.error(new Error(err)))
       .end((err, res) => {
+        // Map each track to its id key inside an object.
+        // This lets us look up tracks by id.
+        let tracksById = res.body.reduce((obj, track) => {
+          obj[track.id] = track;
+          return obj;
+        }, {});
+
         this.setState({
-          tracks: res.body
+          tracks: res.body,
+          tracksById
         });
       });
-  };
+  }
 
-  onTrackSelect(title, username, streamUrl) {
+  /**
+   * When a track is selected from the list,
+   * its id is set to be the activeTrackId.
+   * @param  {number} id ID of selected song
+   * @return {null} Null if track doesn't exist
+   */
+  onTrackSelect(id) {
+    if (!this.state.tracksById[id]) {
+      return;
+    }
+
     this.setState({
-      currentTrack: {
-        title: title,
-        username: username,
-        streamUrl: streamUrl
-      }
+      activeTrackId: id
     });
-  };
-
-  onInputChange(evt) {
-    this.setState({
-      inputValue: evt.target.value
-    });
-  };
-
-  filterTracks() {
-    const { inputValue, tracks } = this.state;
-    
-    return (inputValue) ? tracks.filter(track => {
-      return track.title.indexOf(inputValue) === 0;
-    }) : tracks;
   }
 
   render() {
-    const { title, username } = this.state.currentTrack;
-    const currentTrack = (title && username) ? `${this.state.currentTrack.title} - ${this.state.currentTrack.username}` : '';
+    // Get the current active track
+    const { activeTrackId, tracksById } = this.state;
+    const track = tracksById[activeTrackId] || null;
 
     return (
       <div>
-        <div>
-          <p>{ currentTrack }</p>
-        </div>
+        { track ? <TrackInfo
+          title={ track.title }
+          username={ track.user.username }/> : null }
         <SoundPlayerContainer
-          clientId={CLIENT_ID}
-          streamUrl={ this.state.currentTrack.streamUrl ? this.state.currentTrack.streamUrl : '' } >
+          clientId={ CLIENT_ID }
+          streamUrl={ track ? track.stream_url : '' } >
             <PlayButton />
         </SoundPlayerContainer>
-        <SearchBar
-          value={ this.state.inputValue }
-          onInputChange={ this.onInputChange } />
         <TrackList
-          tracks={ this.filterTracks() }
+          tracks={ this.state.tracks }
           onTrackSelect={ this.onTrackSelect } />
       </div>
     );
-  };
+  }
 }
