@@ -7,7 +7,7 @@ import { PlayButton } from 'react-soundplayer/components';
 import TrackInfo from '../components/TrackInfo';
 import TrackList from '../components/TrackList';
 
-const CLIENT_ID = 'f3ef438d3cc35d9fd575578905fc5510';
+const CLIENT_ID = 'your-key-here';
 
 export default class App extends Component {
   constructor(props) {
